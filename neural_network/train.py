@@ -1,8 +1,8 @@
+import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import numpy as np
-import matplotlib.pyplot as plt
 
 # Load data
 data = np.loadtxt("../preprocessing/merged_dataset.txt", skiprows=1)
@@ -38,7 +38,7 @@ class Net(nn.Module):
             nn.ReLU(),
             nn.Linear(hls, hls),
             nn.ReLU(),
-            nn.Linear(hls, 2)
+            nn.Linear(hls, 2),
         )
 
     def forward(self, a):
@@ -77,13 +77,16 @@ for epoch in range(epochs):
 # =========================
 # SAVE MODEL + NORMALIZATION
 # =========================
-torch.save({
-    'model_state_dict': net.state_dict(),
-    'x_mean': x_mean,
-    'x_std': x_std,
-    'y_mean': y_mean,
-    'y_std': y_std
-}, "model.pth")
+torch.save(
+    {
+        "model_state_dict": net.state_dict(),
+        "x_mean": x_mean,
+        "x_std": x_std,
+        "y_mean": y_mean,
+        "y_std": y_std,
+    },
+    "model.pth",
+)
 
 print("Model saved successfully!")
 
