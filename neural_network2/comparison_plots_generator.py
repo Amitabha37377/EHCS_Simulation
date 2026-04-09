@@ -10,7 +10,7 @@ import glob
 # =========================
 
 data_folder = "../preprocessing/data_downsampled/"
-save_folder = "comparison_plots_512_Tanh"
+save_folder = "Logsigmoid512"
 
 os.makedirs(save_folder, exist_ok=True)
 
@@ -33,9 +33,9 @@ class Net(nn.Module):
 
         self.model = nn.Sequential(
             nn.Linear(3, hls),
-            nn.Tanh(),
+            nn.LogSigmoid(),
             nn.Linear(hls, hls),
-            nn.Tanh(),
+            nn.LogSigmoid(),
             nn.Linear(hls, 2)
         )
 
@@ -47,7 +47,7 @@ class Net(nn.Module):
 # =========================
 
 
-checkpoint = torch.load("model512_Tanh.pth")
+checkpoint = torch.load("LogSigmoid_512model.pth")
 
 net = Net()
 net.load_state_dict(checkpoint['model_state_dict'])

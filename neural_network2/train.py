@@ -23,7 +23,7 @@ y_std = y.std(dim=0)
 y = (y - y_mean) / y_std
 
 dataset = torch.utils.data.TensorDataset(x, y)
-loader = torch.utils.data.DataLoader(dataset, batch_size=256, shuffle=False)
+loader = torch.utils.data.DataLoader(dataset, batch_size=50, shuffle=True)
 
 # Model
 
@@ -35,9 +35,9 @@ class Net(nn.Module):
         super(Net, self).__init__()
         self.model = nn.Sequential(
             nn.Linear(3, hls),
-            nn.Tanh(),
+            nn.LogSigmoid(),
             nn.Linear(hls, hls),
-            nn.Tanh(),
+            nn.LogSigmoid(),
             nn.Linear(hls, 2),
         )
 
@@ -48,10 +48,10 @@ class Net(nn.Module):
 net = Net()
 
 criterion = nn.MSELoss()
-optimizer = optim.Adam(net.parameters(), lr=0.00001)
+optimizer = optim.Adam(net.parameters(), lr=0.000001)
 
 # training
-epochs = 200
+epochs = 150
 loss_history = []
 
 for epoch in range(epochs):
@@ -85,7 +85,7 @@ torch.save(
         "y_mean": y_mean,
         "y_std": y_std,
     },
-    "model512_Tanh.pth",
+    "LogSigmoid_512model.pth",
 )
 
 print("Model saved successfully!")

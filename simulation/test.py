@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import butter, filtfilt
 
 # INPUT SIGNAL PARAMETERS
-Vm = 1            # Voltage amplitude (V)
+Vm = 10            # Voltage amplitude (V)
 freq = 0.1        # Frequency (Hz)
 phase = 0         # Phase (rad)
 
